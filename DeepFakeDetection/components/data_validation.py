@@ -50,15 +50,16 @@ class DataValidation():
 
         try:
             validation_status = self.validate_all_existing_files()
-            data_validation_artifact = DataValidationArtifact(validation_status=status)
+            data_validation_artifact = DataValidationArtifact(validation_status=validation_status)
 
             logging.info("Exited initiate_data_validation method of DataValidation class")
             logging.info(f"Data Validation artifacts : {data_validation_artifact}")
 
-        return data_validation_artifact
+            return data_validation_artifact
         
         except Exception as e:
             raise CustomException(e,sys)
+        
 
 
 
