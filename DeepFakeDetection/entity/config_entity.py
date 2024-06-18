@@ -15,3 +15,11 @@ class DataIngestionConfig:
 
     dataset_name = DATASET_NAME
 
+
+@dataclass
+class DataValidationConfig:
+    data_validation_dir_name = os.path.join(training_pipeline_config.artifacts_dir,DATA_VALIDATION_DIR_NAME)
+
+    valid_status_file_dir = os.path.join(data_validation_dir_name,DATA_VALIDATION_STATUS_FILE)
+
+    required_file_list = DATA_VALIDATION_ALL_REQUIRED_FILES

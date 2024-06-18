@@ -3,8 +3,8 @@ from DeepFakeDetection.exception import CustomException
 from DeepFakeDetection.logger import logging
 
 from DeepFakeDetection.components.data_ingestion import DataIngestion
-from DeepFakeDetection.entity.config_entity import (DataIngestionConfig)
-from DeepFakeDetection.entity.artifacts_entity import (DataIngestionArtifact)
+from DeepFakeDetection.entity.config_entity import (DataIngestionConfig,DataValidationConfig)
+from DeepFakeDetection.entity.artifacts_entity import (DataIngestionArtifact,DataValidationArtifact)
 
 class TrainingPipeline():
     def __init__(self) -> None:
