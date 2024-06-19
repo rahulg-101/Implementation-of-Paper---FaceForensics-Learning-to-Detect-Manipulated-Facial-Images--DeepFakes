@@ -15,3 +15,7 @@ class DataTransformArtifact:
     test_data_generator_file_path:str
     val_data_generator_file_path:str
     train_data_generator_file_path:str
+
+@dataclass
+class ModelTrainerArtifacts:
+    best_pretrained_model_path:str    

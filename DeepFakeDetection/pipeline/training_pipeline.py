@@ -6,8 +6,10 @@ from DeepFakeDetection.logger import logging
 from DeepFakeDetection.components.data_ingestion import DataIngestion
 from DeepFakeDetection.components.data_validation import DataValidation
 from DeepFakeDetection.components.data_transformation import DataTransform
-from DeepFakeDetection.entity.config_entity import (DataIngestionConfig,DataValidationConfig,DataTransformConfig)
-from DeepFakeDetection.entity.artifacts_entity import (DataIngestionArtifact,DataValidationArtifact,DataTransformArtifact)
+from DeepFakeDetection.components.model_trainer import ModelTrainer
+
+from DeepFakeDetection.entity.config_entity import (DataIngestionConfig,DataValidationConfig,DataTransformConfig,ModelTrainerConfig)
+from DeepFakeDetection.entity.artifacts_entity import (DataIngestionArtifact,DataValidationArtifact,DataTransformArtifact,ModelTrainerArtifacts)
 from DeepFakeDetection.utils.main_utils import *
 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator # type: ignore
@@ -17,6 +19,7 @@ class TrainingPipeline():
         self.data_ingestion_config = DataIngestionConfig()
         self.data_validation_config = DataValidationConfig()
         self.data_transform_config = DataTransformConfig()
+        self.model_trainer_config = ModelTrainerConfig()
 
     
     def start_data_ingestion(self)->DataIngestionArtifact:
@@ -70,27 +73,47 @@ class TrainingPipeline():
 
             
             train_datagen_params = load_config('train.json', self.data_transform_config.data_generator_dir)
-            train_datagen = ImageDataGenerator(**train_datagen_params)
+            # train_datagen = ImageDataGenerator(**train_datagen_params)
 
             val_datagen_params = load_config('val.json', self.data_transform_config.data_generator_dir)
-            val_datagen = ImageDataGenerator(**val_datagen_params)
+            # val_datagen = ImageDataGenerator(**val_datagen_params)
 
             test_datagen_params = load_config('test.json', self.data_transform_config.data_generator_dir)
-            test_datagen = ImageDataGenerator(**test_datagen_params)
+            # test_datagen = ImageDataGenerator(**test_datagen_params)
             
             logging.info("ImageDataGenerator objects have been created")
             
-            train_generator = train_datagen.flow_from_directory(**data_transform.create_data_generator_config('train'))
-            val_generator = val_datagen.flow_from_directory(**data_transform.create_data_generator_config('val'))
-            test_generator = test_datagen.flow_from_directory(**data_transform.create_data_generator_config('test'))
-            
+            # train_generator = train_datagen.flow_from_directory(**data_transform.create_data_generator_config('train'))
+            # val_generator = val_datagen.flow_from_directory(**data_transform.create_data_generator_config('val'))
+            # test_generator = test_datagen.flow_from_directory(**data_transform.create_data_generator_config('test'))
+
+            generator_config = {
+            'train': data_transform.create_data_generator_config('train'),
+            'val': data_transform.create_data_generator_config('val'),
+            'test': data_transform.create_data_generator_config('test'),
+            'train_datagen_params': train_datagen_params,
+            'val_datagen_params': val_datagen_params,
+            'test_datagen_params': test_datagen_params
+                                }
             logging.info("Data Subset generators have been successfully created")
             logging.info("Exited the start_data_transformation_generation method of TrainingPipeline class")
-            return train_generator,val_generator,test_generator
-        
+            
+            return generator_config
+                 
         except Exception as e:
             raise CustomException(e,sys)
 
+
+    def start_model_trainer(self, generator_config):
+        try:
+            model_trainer = ModelTrainer(
+                model_trainer_config=self.model_trainer_config,
+                generator_config=generator_config
+            )
+            model_trainer_artifact = model_trainer.initiate_model_trainer()
+            return model_trainer_artifact
+        except Exception as e:
+            raise CustomException(e, sys)
 
 
     def run_pipeline(self):
@@ -99,10 +122,12 @@ class TrainingPipeline():
 
             data_validation_artifact = self.start_data_validation(
                 data_ingestion_artifact=data_ingestion_artifact)
-            if data_validation_artifact.validation_status == True:
-                train_generator,val_generator,test_generator = self.start_data_transformation_generation(data_ingestion_artifact=data_ingestion_artifact)
-                return train_generator,val_generator,test_generator
 
+            if data_validation_artifact.validation_status:
+                generator_config = self.start_data_transformation_generation(
+                    data_ingestion_artifact=data_ingestion_artifact)
+                
+                model_trainer_artifact = self.start_model_trainer(generator_config=generator_config)
 
         except Exception as e:
             raise CustomException(e,sys)

@@ -41,3 +41,13 @@ BATCH_SIZE = 32
 
 CLASS_MODE = 'binary'
 
+
+"""
+Model trainer related consstant start with MODEL_TRAINER VAR Name
+"""
+
+MODEL_TRAINER_DIR_NAME = "model_trainer"    # Create model_trainer folder
+
+MODEL_TRAINER_PRETRAINED_WEIGHT_NAME = "best_pt.hdf5"
+
+

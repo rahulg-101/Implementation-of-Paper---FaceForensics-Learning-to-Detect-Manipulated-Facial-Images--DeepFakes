@@ -39,3 +39,9 @@ class DataTransformConfig:
     batch_size = BATCH_SIZE
     class_mode = CLASS_MODE
 
+@dataclass
+class ModelTrainerConfig:
+
+    model_trainer_dir = os.path.join(training_pipeline_config.artifacts_dir,MODEL_TRAINER_DIR_NAME)
+
+    best_pretrained_model = MODEL_TRAINER_PRETRAINED_WEIGHT_NAME

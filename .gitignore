@@ -162,3 +162,5 @@ cython_debug/
 #.idea/
 
 artifacts/data_ingestion/data
+artifacts/model_trainer/best_pt.hdf5
+best_pt.hdf5
