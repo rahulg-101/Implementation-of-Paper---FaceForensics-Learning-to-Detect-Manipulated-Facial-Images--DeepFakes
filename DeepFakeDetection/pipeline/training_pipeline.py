@@ -132,3 +132,6 @@ class TrainingPipeline():
         except Exception as e:
             raise CustomException(e,sys)
         
+if __name__ =="__main__":
+    obj = TrainingPipeline()
+    obj.run_pipeline()
