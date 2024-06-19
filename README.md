@@ -72,6 +72,15 @@ This project is licensed under the [MIT License](LICENSE).
 
 This project is based on the research paper [FaceForensics++: Learning to Detect Manipulated Facial Images](https://arxiv.org/abs/1901.08971v3) by Andreas Rössler, Davide Cozzolino, Luisa Verdoliva, Christian Riess, Justus Thies, and Matthias Nießner.
 
+```
+@inproceedings{roessler2019faceforensicspp,
+	author = {Andreas R\"ossler and Davide Cozzolino and Luisa Verdoliva and Christian Riess and Justus Thies and Matthias Nie{\ss}ner},
+	title = {Face{F}orensics++: Learning to Detect Manipulated Facial Images},
+	booktitle= {International Conference on Computer Vision (ICCV)},
+	year = {2019}
+}
+
+```
 ## Curious Cases
 
 If you're interested in creating projects that teach you how to develop production-grade code, then you should check out my previous project, "[Objection Detection and Tracking on Football Players](https://github.com/rahulg-101/Objection-Detection-and-Tracking-on-Football-Players) ," where I have outlined all the necessary steps to build such a project.
