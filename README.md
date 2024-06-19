@@ -22,6 +22,11 @@ The project is organized into the following components:
 8. **Experimentation Notebook**: Contains serialized code for experimenting with the project components.
 9. **Web Application**: Provides a user-friendly interface built with Gradio for uploading images and obtaining predictions.
 
+
+## Experiment Tracking
+
+This project utilizes `Weights and Biases (W&B)` for tracking experiments, tuning hyperparameters, and monitoring model performance. W&B provides a user-friendly interface for visualizing and analyzing experiment results, making it easier to iterate and optimize the model.
+
 ## Prerequisites
 
 - Python 3.7 or higher
