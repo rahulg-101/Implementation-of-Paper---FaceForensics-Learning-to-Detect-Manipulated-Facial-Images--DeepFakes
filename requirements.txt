@@ -13,7 +13,7 @@ kaggle
 pillow>=7.1.2
 setuptools
 opencv-contrib-python==4.9.0.80
-
+scipy
 ipython
 psutil
 thop

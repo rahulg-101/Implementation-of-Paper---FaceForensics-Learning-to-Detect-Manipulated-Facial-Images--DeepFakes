@@ -8,8 +8,8 @@ from DeepFakeDetection.entity.artifacts_entity import (DataIngestionArtifact,Dat
 
 class DataValidation():
     def __init__(self,
-                data_validation_config = DataValidationConfig(),
-                data_ingestion_artifact = DataIngestionArtifact()):
+                data_validation_config = DataValidationConfig,
+                data_ingestion_artifact = DataIngestionArtifact):
         
         try:
             self.data_validation_config = data_validation_config
@@ -24,8 +24,8 @@ class DataValidation():
             
             validation_status = None
 
-            all_files = os.listdir(self.data_ingestion_artifact.data_ingestion_file_path)
-
+            all_files = os.listdir(os.path.join(self.data_ingestion_artifact.data_ingestion_file_path,'data'))
+            
             for file in all_files:
                 if file not in self.data_validation_config.required_file_list:
                     print(file)

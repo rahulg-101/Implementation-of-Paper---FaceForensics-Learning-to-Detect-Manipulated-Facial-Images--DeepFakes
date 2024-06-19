@@ -23,3 +23,19 @@ class DataValidationConfig:
     valid_status_file_dir = os.path.join(data_validation_dir_name,DATA_VALIDATION_STATUS_FILE)
 
     required_file_list = DATA_VALIDATION_ALL_REQUIRED_FILES
+
+@dataclass
+class DataTransformConfig:
+    data_generator_dir = os.path.join(training_pipeline_config.artifacts_dir,DATA_GENERATOR_DIR_NAME)
+
+    horizontal_flip = HORIZONTAL_FLIP
+    rotation_range = ROTATION_RANGE
+    shear_range = shear_range
+    zoom_range = ZOOM_RANGE
+
+
+
+    target_size = TARGET_SIZE
+    batch_size = BATCH_SIZE
+    class_mode = CLASS_MODE
+
